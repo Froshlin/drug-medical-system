@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #e0e0e0;
+  --card: rgba(30, 30, 46, 0.6);
+  --border: rgba(255, 255, 255, 0.08);
+}
+
+body {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0f0f1e 100%);
+  color: var(--foreground);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.glass {
+  background: rgba(30, 30, 46, 0.65);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.glass:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Severity Colors */
+.severe {
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+}
+
+.moderate {
+  border-color: #eab308;
+  background: rgba(234, 179, 8, 0.1);
+  color: #fcd34d;
+}
+
+.mild {
+  border-color: #22c55e;
+  background: rgba(34, 197, 94, 0.1);
+  color: #86efac;
+}
