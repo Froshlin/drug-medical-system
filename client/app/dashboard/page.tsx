@@ -104,7 +104,7 @@ export default function Dashboard() {
             <Navbar />
             <Sidebar />
 
-            <main className="lg:ml-72 pt-20 min-h-screen p-6 lg:p-10">
+            <main className="lg:ml-72 mt-20 pt-20 min-h-screen p-6 lg:p-10">
                 <div className="max-w-7xl mx-auto">
                     <h1 className="text-4xl font-bold mb-2">
                         Welcome back, {isDoctor ? 'Dr.' : ''} {user?.name?.split(' ')[0] || 'User'}
