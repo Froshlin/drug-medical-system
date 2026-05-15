@@ -12,10 +12,9 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
 
         if (!token) {
             router.replace('/login');
-        } else {
+        }
             // eslint-disable-next-line react-hooks/set-state-in-effect
             setIsChecking(false);
-        }
     }, [router]);
 
     if (isChecking) {
