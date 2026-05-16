@@ -68,7 +68,7 @@ export default function DoctorComplaints() {
             <Navbar />
             <Sidebar />
 
-            <main className="lg:ml-72 pt-20 min-h-screen p-6 lg:p-10">
+            <main className="lg:ml-72 mt-20 pt-20 min-h-screen p-6 lg:p-10">
                 <div className="max-w-6xl mx-auto">
                     <h1 className="text-4xl font-bold mb-2">Patient Complaints</h1>
                     <p className="text-gray-400 mb-10">Review and respond to patient concerns</p>
