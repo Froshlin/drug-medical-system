@@ -5,11 +5,16 @@ exports.submitComplaint = async (req, res) => {
     try {
         const { complaint } = req.body;
         const patientId = req.user.id;
-        const patientName = req.user.name || "Unknown Patient";
 
         if (!complaint || complaint.trim() === '') {
             return res.status(400).json({ error: "Complaint description is required" });
         }
+
+        // Fetch patient name from database (most reliable method)
+        const User = require('../models/User');
+        const patient = await User.findById(patientId).select('name');
+
+        const patientName = patient ? patient.name : "Unknown Patient";
 
         const newComplaint = new Complaint({
             patientId,

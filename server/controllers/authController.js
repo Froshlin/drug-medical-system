@@ -33,7 +33,11 @@ exports.register = async (req, res) => {
         await user.save();
 
         const token = jwt.sign(
-            { id: user._id, role: user.role },
+            { 
+                id: user._id, 
+                name: user.name,
+                role: user.role 
+            },
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
         );
@@ -66,9 +70,13 @@ exports.login = async (req, res) => {
         if (!isMatch) return res.status(400).json({ error: "Invalid credentials" });
 
         const token = jwt.sign(
-            { id: user._id, role: user.role },
+            { 
+                id: user._id,
+                name: user.name,
+                role: user.role 
+            },
             process.env.JWT_SECRET,
-            { expiresIn: '7d' }
+            { expiresIn: '2h' }
         );
 
         res.json({
