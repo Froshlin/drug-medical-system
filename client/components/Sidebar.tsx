@@ -29,6 +29,7 @@ export default function Sidebar() {
   // Doctor Navigation
   const doctorNav = [
     { name: 'Dashboard', href: '/dashboard', icon: Home },
+    {name: 'Check Interaction', href: '/check-interaction', icon: Search},
     { name: 'Interaction Logs', href: '/interaction-logs', icon: Search },
     { name: 'New Prescription', href: '/prescription', icon: FileText },
     { name: 'Prescription History', href: '/history', icon: History },
