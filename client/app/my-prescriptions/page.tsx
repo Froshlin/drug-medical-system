@@ -56,7 +56,7 @@ export default function MyPrescriptions() {
             <Navbar />
             <Sidebar />
 
-            <main className="lg:ml-72 pt-20 min-h-screen p-6 lg:p-10">
+            <main className="lg:ml-72 mt-20 pt-20 min-h-screen p-6 lg:p-10">
                 <div className="max-w-5xl mx-auto">
                     <h1 className="text-4xl font-bold mb-2">My Prescriptions</h1>
                     <p className="text-gray-400 mb-10">All medications prescribed by doctors</p>
