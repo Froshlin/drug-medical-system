@@ -8,7 +8,6 @@ const normalizationMap = {
     "felvin": "piroxicam",
     "ibuprofen": "ibuprofen",
     "diclofenac": "diclofenac",
-    // Add more Nigerian brand names here
 };
 
 const normalizeDrugName = (name) => {

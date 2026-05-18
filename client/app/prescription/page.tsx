@@ -1,12 +1,11 @@
 'use client';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Sidebar from '@/components/Sidebar';
 import GlassCard from '@/components/GlassCard';
 import api from '@/services/api';
 import toast from 'react-hot-toast';
 import { Save, Plus, Trash2 } from 'lucide-react';
-import ProtectedRoute from '@/lib/protectedRoute';
 
 interface Interaction {
   pair: string[];
@@ -22,7 +21,9 @@ export default function NewPrescription() {
   const [saving, setSaving] = useState(false);
 
   const addDrug = () => {
-    if (drugs.length < 8) setDrugs([...drugs, '']);
+    if (drugs.length < 8) {
+      setDrugs([...drugs, '']);
+    }
   };
 
   const removeDrug = (index: number) => {
@@ -37,7 +38,8 @@ export default function NewPrescription() {
     setDrugs(updated);
   };
 
-  const checkInteractions = useCallback(async () => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const checkInteractions = async () => {
     const filledDrugs = drugs.filter(d => d.trim() !== '');
     if (filledDrugs.length < 2) {
       setInteractions([]);
@@ -48,63 +50,62 @@ export default function NewPrescription() {
       const res = await api.post('/interactions/check', { drugs: filledDrugs });
       setInteractions(res.data.interactions || []);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {
-      console.error('Interaction check failed (Backend may be offline)');
+    } catch (error: unknown) {
+      console.error('Failed to check interactions');
       setInteractions([]);
     }
-  }, [drugs]);
+  };
 
-  // Auto-check only when drugs change
   useEffect(() => {
-    const timeout = setTimeout(checkInteractions, 600);
+    const timeout = setTimeout(checkInteractions, 700);
     return () => clearTimeout(timeout);
-  }, [checkInteractions]);
+  }, [checkInteractions, drugs]);
 
   const handleSavePrescription = async () => {
-  const filledDrugs = drugs.filter(d => d.trim() !== '');
+    const filledDrugs = drugs.filter(d => d.trim() !== '');
 
-  if (!patientName || filledDrugs.length < 1) {
-    toast.error("Patient name and at least one drug are required");
-    return;
-  }
+    if (!patientName || filledDrugs.length < 1) {
+      toast.error("Patient name and at least one drug are required");
+      return;
+    }
 
-  setSaving(true);
+    setSaving(true);
 
-  try {
-    await api.post('/prescriptions', {
-      patientName,
-      drugs: filledDrugs,
-      notes
-      // doctorId is automatically added via auth middleware in backend
-    });
+    try {
+      await api.post('/prescriptions', {
+        patientName: patientName.trim(),
+        drugs: filledDrugs,
+        notes
+      });
 
-    toast.success("Prescription saved successfully!");
+      toast.success("Prescription saved successfully!");
 
-    // Reset form
-    setPatientName('');
-    setDrugs(['', '']);
-    setNotes('');
-    setInteractions([]);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (error) {
-    toast.error("Failed to save prescription");
-  } finally {
-    setSaving(false);
-  }
-};
+      // Reset form
+      setPatientName('');
+      setDrugs(['', '']);
+      setNotes('');
+      setInteractions([]);
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { error?: string } } };
+      toast.error(err.response?.data?.error || "Failed to save prescription");
+    } finally {
+      setSaving(false);
+    }
+  };
 
   return (
-    <ProtectedRoute>
+    <>
       <Navbar />
       <Sidebar />
 
-      <main className="lg:ml-72 mt-20 pt-20 min-h-screen p-6 lg:p-10">
+      <main className="lg:ml-72 pt-20 min-h-screen p-6 lg:p-10">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold mb-2">New Prescription</h1>
-          <p className="text-gray-400 mb-10">Create a safe prescription with interaction warnings</p>
+          <p className="text-gray-400 mb-10">Prescribe medication for a patient</p>
 
           <GlassCard className="p-8">
             <div className="space-y-8">
+              {/* Patient Info */}
               <div>
                 <label className="block text-sm text-gray-400 mb-2">Patient Full Name</label>
                 <input
@@ -116,6 +117,7 @@ export default function NewPrescription() {
                 />
               </div>
 
+              {/* Drugs */}
               <div>
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="text-lg font-semibold">Medications</h3>
@@ -150,9 +152,10 @@ export default function NewPrescription() {
                 </div>
               </div>
 
+              {/* Interaction Warnings */}
               {interactions.length > 0 && (
                 <div className="bg-red-500/10 border border-red-500/30 rounded-3xl p-6">
-                  <h4 className="text-red-400 font-semibold mb-3">⚠️ Interaction Warnings</h4>
+                  <h4 className="text-red-400 font-semibold mb-3">Interaction Warnings</h4>
                   {interactions.map((int, i) => (
                     <div key={i} className="text-sm text-red-300 mb-2">
                       • {int.pair[0]} + {int.pair[1]} → {int.severity.toUpperCase()}
@@ -161,6 +164,7 @@ export default function NewPrescription() {
                 </div>
               )}
 
+              {/* Notes */}
               <div>
                 <label className="block text-sm text-gray-400 mb-2">Additional Notes / Instructions</label>
                 <textarea
@@ -184,6 +188,6 @@ export default function NewPrescription() {
           </GlassCard>
         </div>
       </main>
-    </ProtectedRoute>
+    </>
   );
 }

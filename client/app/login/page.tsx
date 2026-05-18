@@ -75,7 +75,7 @@ export default function LoginPage() {
                 {/* Login Card */}
                 <GlassCard className="p-10">
                     <h2 className="text-2xl font-semibold text-center mb-8">
-                        Doctor Login
+                        Login
                     </h2>
 
                     <form

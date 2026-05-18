@@ -8,6 +8,7 @@ const auth = require('../middleware/auth');
 // Prescription Routes
 router.post('/', auth, prescriptionController.createPrescription);
 router.get('/', auth, prescriptionController.getPrescriptions);
+router.get('/my', auth, prescriptionController.getMyPrescriptions);
 
 // Stats Route
 router.get('/stats', auth, dashboardController.getStats);

@@ -43,3 +43,27 @@ exports.getPrescriptions = async (req, res) => {
         res.status(500).json({ error: "Failed to fetch prescriptions" });
     }
 };
+
+// Get Patient's Own Prescriptions
+exports.getMyPrescriptions = async (req, res) => {
+    try {
+        const patientName = req.user.name;
+
+        if (!patientName) {
+            return res.status(400).json({ error: "Patient name not found" });
+        }
+
+        const prescriptions = await Prescription.find({ 
+            patientName: { $regex: new RegExp(patientName, 'i') } 
+        })
+        .sort({ createdAt: -1 });
+
+        res.json({
+            success: true,
+            prescriptions
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to fetch your prescriptions" });
+    }
+};

@@ -13,6 +13,10 @@ body {
   font-family: 'Inter', system-ui, sans-serif;
 }
 
+button{
+  cursor: pointer;
+}
+
 .glass {
   background: rgba(30, 30, 46, 0.65);
   backdrop-filter: blur(20px);

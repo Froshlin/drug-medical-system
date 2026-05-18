@@ -7,6 +7,11 @@ const PrescriptionSchema = new mongoose.Schema({
         required: true
     },
     patientName: { type: String, required: true },
+    patientId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: false   // Optional for now
+    },
     drugs: [{ type: String, required: true }],
     interactionsFound: [{
         pair: [String],

@@ -42,6 +42,7 @@ export default function Sidebar() {
     { name: 'Drug Interaction', href: '/check-interaction', icon: Search },
     { name: 'Clinical Complaint', href: '/complaint', icon: AlertCircle },
     { name: 'My Complaints', href: '/complaint-history', icon: History },
+    { name: 'My Prescriptions', href: '/my-prescriptions', icon: FileText },
   ];
 
   const navItems = isDoctor ? doctorNav : patientNav;
@@ -85,7 +86,7 @@ export default function Sidebar() {
         onClick={() => setIsMobileOpen(!isMobileOpen)}
         className="lg:hidden fixed top-4 right-4 z-50 p-3 glass rounded-2xl text-white"
       >
-        {isMobileOpen ? <X size={26} /> : '☰'}
+        {isMobileOpen ? <X size={24} /> : '☰'}
       </button>
 
       {/* Mobile Sidebar Overlay */}
