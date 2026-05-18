@@ -98,7 +98,7 @@ export default function NewPrescription() {
       <Navbar />
       <Sidebar />
 
-      <main className="lg:ml-72 pt-20 min-h-screen p-6 lg:p-10">
+      <main className="lg:ml-72 mt-20 pt-20 min-h-screen p-6 lg:p-10">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold mb-2">New Prescription</h1>
           <p className="text-gray-400 mb-10">Prescribe medication for a patient</p>

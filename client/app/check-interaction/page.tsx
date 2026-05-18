@@ -5,7 +5,7 @@ import Sidebar from '@/components/Sidebar';
 import GlassCard from '@/components/GlassCard';
 import api from '@/services/api';
 import toast from 'react-hot-toast';
-import { Search, Plus, Trash2 } from 'lucide-react';
+import { Search, Plus, Trash2, CheckCircle2 } from 'lucide-react';
 import ProtectedRoute from '@/lib/protectedRoute';
 
 interface Interaction {
@@ -130,7 +130,9 @@ export default function CheckInteraction() {
 
                             {interactions.length === 0 ? (
                                 <GlassCard className="p-12 text-center">
-                                    <div className="text-6xl mb-4">✅</div>
+                                    <div className="text-6xl mb-4">
+                                        <CheckCircle2 color='text-green-500'/>
+                                    </div>
                                     <h3 className="text-2xl font-semibold text-green-400">No Interactions Found</h3>
                                     <p className="text-gray-400 mt-3">This combination appears safe</p>
                                 </GlassCard>

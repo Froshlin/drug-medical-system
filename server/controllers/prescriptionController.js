@@ -4,9 +4,11 @@ exports.createPrescription = async (req, res) => {
     try {
         const { patientName, drugs, notes } = req.body;
         const doctorId = req.user.id;
+        const doctorName = req.user.name;
 
         const prescription = new Prescription({
             doctorId,
+            doctorName,
             patientName,
             drugs,
             interactionsFound: [],
